@@ -1,9 +1,11 @@
 import React from 'react';
+import useParking from '../hooks/useParking';
 
 const CardList = ({ filteredParking, onDelete }) => {
-   
-    const handleDelete = (index) => {
-        onDelete(index);
+    const { setEditState } = useParking()
+
+    const handleEdit = (entry) => {
+        setEditState(entry)
     };
 
     return (
@@ -25,8 +27,9 @@ const CardList = ({ filteredParking, onDelete }) => {
                             <td>{entry.car}</td>
                             <td>{entry.licensePlate}</td>
                             <td>{entry.entryDate}</td>
-                            <td>
-                                <button onClick={() => handleDelete(index)} className="btn btn-danger">Delete</button>
+                            <td className='flex gap-3'>
+                                <button onClick={() => onDelete(index)} className="btn btn-danger">Delete</button>
+                                <button onClick={() => handleEdit(entry)} className="btn btn-primary">Edit</button>
                             </td>
                         </tr>
                     ))}

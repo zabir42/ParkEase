@@ -3,6 +3,7 @@ import { ParkingContext } from "../context";
 
 const ParkingProvider = ({ children }) => {
     const [parking, setParking] = useState([]);
+    const [editState, setEditState] = useState(false)
 
     const deleteParkingEntry = (index) => {
         const updatedParking = parking.filter((_, i) => i !== index);
@@ -10,7 +11,7 @@ const ParkingProvider = ({ children }) => {
     };
 
     return (
-        <ParkingContext.Provider value={{ parking, setParking, deleteParkingEntry }}>
+        <ParkingContext.Provider value={{ parking, setParking, deleteParkingEntry, editState, setEditState }}>
             {children}
         </ParkingContext.Provider>
     );

@@ -1,22 +1,39 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import useParking from '../hooks/useParking';
 import Field from './shared/Field';
 
 const ParkingForm = () => {
-    const {
-        register,
-        handleSubmit,
-        formState: { errors },
-        reset
-    } = useForm();
+    const { register, handleSubmit, formState: { errors }, reset, setValue } = useForm();
+    const { parking, setParking, editState, setEditState } = useParking();
 
-    const { parking, setParking } = useParking()
+    useEffect(() => {
+        if (editState) {
+            setValue('owner', editState.owner);
+            setValue('car', editState.car);
+            setValue('licensePlate', editState.licensePlate);
+        }
+    }, [editState, setValue]);
 
-    const onSubmit = (data) => {
-        const newEntry = { ...data, entryDate: new Date().toLocaleString() };
+    const onSubmitCreate = (data) => {
+        const newEntry = { ...data, entryDate: new Date().toLocaleString(), id: generateUniqueId() };
         setParking([...parking, newEntry]);
-        reset()
+        reset();
+    };
+
+    const onSubmitEdit = (data) => {
+        const updatedParking = parking.map((entry) =>
+            entry.id === editState?.entry?.id ? { ...entry, ...data } : entry
+        );
+        setParking(updatedParking);
+        reset();
+        setEditState(false)
+    };
+
+    const onSubmit = editState ? onSubmitEdit : onSubmitCreate;
+
+    const generateUniqueId = () => {
+        return '_' + Math.random().toString(36).substr(2, 9);
     };
 
     return (
@@ -24,12 +41,12 @@ const ParkingForm = () => {
             <div className="card rounded-0 shadow">
                 <div className="card-header rounded-0">
                     <div className="card-title">
-                        <b>Parking Form</b>
+                        <b>{editState ? 'Edit Parking Entry' : 'Create Parking Entry'}</b>
                     </div>
                 </div>
                 <div className="card-body rounded-0">
                     <div className="container-fluid">
-                        <form id="entryForm" onSubmit={handleSubmit(onSubmit)}>
+                        <form id="entryForm" onSubmit={handleSubmit(onSubmit)} autoComplete="off">
                             <div className="form-group">
                                 <Field label="Car Owner Name:" error={errors.owner?.message}>
                                     <input
@@ -65,7 +82,7 @@ const ParkingForm = () => {
                                 className="btn bg-blue-500 mx-auto col-lg-5 col-md-6 col-sm-12 col-12 d-block mt-5 rounded-0 bg-gradient btn-primary"
                                 id="btnOne"
                             >
-                                Save
+                                {editState ? 'Update' : 'Save'}
                             </button>
                         </form>
                     </div>
