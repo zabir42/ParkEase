@@ -1,16 +1,16 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { ParkingContext } from "../context";
 
-
-
-// eslint-disable-next-line react/prop-types
 const ParkingProvider = ({ children }) => {
     const [parking, setParking] = useState([]);
 
-
+    const deleteParkingEntry = (index) => {
+        const updatedParking = parking.filter((_, i) => i !== index);
+        setParking(updatedParking);
+    };
 
     return (
-        <ParkingContext.Provider value={{ parking, setParking }}>
+        <ParkingContext.Provider value={{ parking, setParking, deleteParkingEntry }}>
             {children}
         </ParkingContext.Provider>
     );

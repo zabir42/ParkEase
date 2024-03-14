@@ -5,7 +5,7 @@ import CardList from './CardList';
 
 const CarWrapper = () => {
 
-    const { parking } = useParking();
+    const { parking, deleteParkingEntry } = useParking();
     const [searchQuery, setSearchQuery] = useState('');
 
     const searchFilteredParking = (parking, search) =>
@@ -21,6 +21,10 @@ const CarWrapper = () => {
         setSearchQuery(event.target.value.toLowerCase());
     };
 
+    const handleDeleteEntry = (index) => {
+        deleteParkingEntry(index);
+    };
+
     const filteredParking = searchFilteredParking(parking, searchQuery);
     return (
         <div className="col-lg-8 col-md-8 col-sm-12 col-12">
@@ -33,7 +37,7 @@ const CarWrapper = () => {
                 <div className="card-body rounded-0">
                     <div className="container-fluid">
                         <CarSearching searchQuery={searchQuery} onSearch={handleSearch} />
-                        <CardList filteredParking={filteredParking} />
+                        <CardList filteredParking={filteredParking} onDelete={handleDeleteEntry} />
                     </div>
                 </div>
             </div>
@@ -41,4 +45,4 @@ const CarWrapper = () => {
     )
 }
 
-export default CarWrapper
+export default CarWrapper;

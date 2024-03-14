@@ -1,7 +1,11 @@
-import React from 'react'
+import React from 'react';
 
-const CardList = ({filteredParking}) => {
+const CardList = ({ filteredParking, onDelete }) => {
    
+    const handleDelete = (index) => {
+        onDelete(index);
+    };
+
     return (
         <div className="table-responsive">
             <table className="table table-sm table-striped table-bordered" id="parkingTable">
@@ -11,8 +15,7 @@ const CardList = ({filteredParking}) => {
                         <th scope="col">Car</th>
                         <th scope="col">License Plate</th>
                         <th scope="col">Entry Date</th>
-                        {/* <th scope="col">Exit Date</th>
-                    <th scope="col">Actions</th> */}
+                        <th scope="col">Actions</th>
                     </tr>
                 </thead>
                 <tbody id="tableBody">
@@ -22,14 +25,15 @@ const CardList = ({filteredParking}) => {
                             <td>{entry.car}</td>
                             <td>{entry.licensePlate}</td>
                             <td>{entry.entryDate}</td>
-                            <td>{/* Add exit date logic here */}</td>
-                            <td>{/* Add actions buttons here */}</td>
+                            <td>
+                                <button onClick={() => handleDelete(index)} className="btn btn-danger">Delete</button>
+                            </td>
                         </tr>
                     ))}
                 </tbody>
             </table>
         </div>
-    )
-}
+    );
+};
 
-export default CardList
+export default CardList;
