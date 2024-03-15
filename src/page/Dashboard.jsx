@@ -31,9 +31,10 @@ const Dashboard = () => {
     return (
         <>
             <Header />
-            <div>Welcome, {user.displayName ? user.displayName : 'admin'}</div>
-
-            <button className='bg-black text-white rounded p-1' onClick={handleLogout}>Logout</button>
+            <div className="container flex items-center justify-end m-4">
+                <div className="mr-4">Welcome, {user.displayName ? user.displayName : 'admin'}</div>
+                <button className='bg-blue-500 text-white rounded p-2' onClick={handleLogout}>Logout</button>
+            </div>
             <div className="container-md pt-5">
                 <div className="row">
                     <ParkingForm />
@@ -42,6 +43,7 @@ const Dashboard = () => {
             </div>
             <Footer />
         </>
+
 
     );
 
