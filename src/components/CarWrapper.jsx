@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import useParking from '../hooks/useParking';
+import CarList from './CarList';
 import CarSearching from './CarSearching';
-import CardList from './CardList';
 
 const CarWrapper = () => {
 
@@ -37,7 +37,7 @@ const CarWrapper = () => {
                 <div className="card-body rounded-0">
                     <div className="container-fluid">
                         <CarSearching searchQuery={searchQuery} onSearch={handleSearch} />
-                        <CardList filteredParking={filteredParking} onDelete={handleDeleteEntry} />
+                        <CarList filteredParking={filteredParking} onDelete={handleDeleteEntry} />
                     </div>
                 </div>
             </div>
