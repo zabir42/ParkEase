@@ -23,12 +23,14 @@ const ParkingForm = () => {
 
     const onSubmitEdit = (data) => {
         const updatedParking = parking.map((entry) =>
-            entry.id === editState?.entry?.id ? { ...entry, ...data } : entry
+            entry.id === editState?.id ? { ...entry, ...data } : entry
         );
         setParking(updatedParking);
         reset();
-        setEditState(false)
+        setEditState('')
     };
+
+
 
     const onSubmit = editState ? onSubmitEdit : onSubmitCreate;
 
