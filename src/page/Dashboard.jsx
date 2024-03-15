@@ -31,7 +31,8 @@ const Dashboard = () => {
     return (
         <>
             <Header />
-            <div>Welcome, {user.displayName}</div>
+            <div>Welcome, {user.displayName ? user.displayName : 'admin'}</div>
+
             <button className='bg-black text-white rounded p-1' onClick={handleLogout}>Logout</button>
             <div className="container-md pt-5">
                 <div className="row">
@@ -41,6 +42,7 @@ const Dashboard = () => {
             </div>
             <Footer />
         </>
+
     );
 
 };
