@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { Navigate, Outlet } from "react-router-dom";
 import { auth } from "../firebase";
@@ -5,14 +6,15 @@ import { auth } from "../firebase";
 const PrivateRoutes = () => {
     const [user] = useAuthState(auth);
 
+    useEffect(() => {
+        if (user) {
+            showConfirmation();
+        }
+    }, [user]);
 
     const showConfirmation = () => {
-        window.confirm("You are logged in successfully!"); 
+        window.confirm("You are logged in successfully!");
     };
-
-    if (user) {
-        showConfirmation();
-    }
 
     return (
         <>
