@@ -1,4 +1,3 @@
-
 import React from "react";
 
 const Field = ({ label, children, htmlFor, error }) => {
@@ -21,10 +20,9 @@ const Field = ({ label, children, htmlFor, error }) => {
 };
 
 const getChildId = (children) => {
-    const child = React.Children.only(children);
-    if ("id" in child?.props) {
-        return child?.props.id;
-    }
+    const childArray = React.Children.toArray(children);
+    const child = childArray.find((child) => "id" in child?.props);
+    return child?.props.id;
 };
 
 export default Field;

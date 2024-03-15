@@ -52,9 +52,10 @@ const ParkingForm = () => {
                                     <input
                                         type="text"
                                         {...register('owner', { required: 'Car Owner Name is required' })}
-                                        className="form-control rounded-0 shadow-sm"
+                                        className={`form-control rounded-0 shadow-sm ${errors.owner ? 'is-invalid' : ''}`}
                                         placeholder="Enter Name:"
                                     />
+                                    {errors.owner && <div className="invalid-feedback">{errors.owner.message}</div>}
                                 </Field>
                             </div>
                             <div className="form-group">
@@ -62,9 +63,10 @@ const ParkingForm = () => {
                                     <input
                                         type="text"
                                         {...register('car', { required: 'Car Brand/Model/Color is required' })}
-                                        className="form-control rounded-0 shadow-sm"
+                                        className={`form-control rounded-0 shadow-sm ${errors.car ? 'is-invalid' : ''}`}
                                         placeholder="Write Here"
                                     />
+                                    {errors.car && <div className="invalid-feedback">{errors.car.message}</div>}
                                 </Field>
                             </div>
                             <div className="form-group">
@@ -72,9 +74,10 @@ const ParkingForm = () => {
                                     <input
                                         type="text"
                                         {...register('licensePlate', { required: 'License Plate is required' })}
-                                        className="form-control rounded-0 shadow-sm"
+                                        className={`form-control rounded-0 shadow-sm ${errors.licensePlate ? 'is-invalid' : ''}`}
                                         placeholder="License Plate:"
                                     />
+                                    {errors.licensePlate && <div className="invalid-feedback">{errors.licensePlate.message}</div>}
                                 </Field>
                             </div>
                             <button
