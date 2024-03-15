@@ -15,10 +15,8 @@ const LoginPage = () => {
             navigate('/')
         } catch (error) {
             console.log(error);
-
         }
     };
-
 
     return (
         <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
@@ -42,12 +40,17 @@ const LoginPage = () => {
                             <input
                                 id="password"
                                 type="password"
-                                {...register('password', { required: true })}
+                                {...register('password', { required: true, minLength: 6 })}
                                 className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
                                 placeholder="Password"
                             />
                         </Field>
-                        {errors.password && <p className="mt-2 text-sm text-red-600" id="password-error">Password is required</p>}
+                        {errors.password && errors.password.type === 'required' && (
+                            <p className="mt-2 text-sm text-red-600" id="password-error">Password is required</p>
+                        )}
+                        {errors.password && errors.password.type === 'minLength' && (
+                            <p className="mt-2 text-sm text-red-600" id="password-error">Password must be at least 6 characters</p>
+                        )}
                     </div>
 
                     <div>
