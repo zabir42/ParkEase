@@ -6,16 +6,15 @@ import { registerWithEmailAndPassword } from '../firebase';
 
 const Signup = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
-    const navigate = useNavigate()
+    const navigate = useNavigate();
 
     const onSubmit = async (data) => {
         try {
-            const user = await registerWithEmailAndPassword(data.email, data.password);
+            const user = await registerWithEmailAndPassword(data.email, data.password, data.username);
             console.log(user);
-            navigate('/login')
+            navigate('/login');
         } catch (error) {
             console.log(error);
-
         }
     };
 
@@ -23,6 +22,17 @@ const Signup = () => {
         <div className="container mx-auto mt-8">
             <form onSubmit={handleSubmit(onSubmit)} className="max-w-md mx-auto bg-white p-8 rounded shadow-md">
                 <h2 className="text-2xl font-semibold mb-4">Sign Up</h2>
+                <div className="mb-4">
+                    <Field label="Username">
+                        <input
+                            type="text"
+                            id="username"
+                            {...register('username', { required: true })}
+                            className="w-full px-3 py-2 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+                        />
+                    </Field>
+                    {errors.username && <span className="text-red-500">Username is required</span>}
+                </div>
                 <div className="mb-4">
                     <Field label="Email">
                         <input

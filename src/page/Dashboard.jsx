@@ -31,7 +31,7 @@ const Dashboard = () => {
     return (
         <>
             <Header />
-            <div>Welcome, {user.email}</div>
+            <div>Welcome, {user.displayName}</div>
             <button className='bg-black text-white rounded p-1' onClick={handleLogout}>Logout</button>
             <div className="container-md pt-5">
                 <div className="row">

@@ -6,9 +6,14 @@ const ParkingProvider = ({ children }) => {
     const [editState, setEditState] = useState('')
 
     const deleteParkingEntry = (index) => {
-        const updatedParking = parking.filter((_, i) => i !== index);
-        setParking(updatedParking);
+
+        const confirmed = window.confirm("Are you sure you want to delete this parking entry?");
+        if (confirmed) {
+            const updatedParking = parking.filter((_, i) => i !== index);
+            setParking(updatedParking);
+        }
     };
+
 
     return (
         <ParkingContext.Provider value={{ parking, setParking, deleteParkingEntry, editState, setEditState }}>

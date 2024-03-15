@@ -5,6 +5,7 @@ import {
   getAuth,
   sendPasswordResetEmail,
   signInWithEmailAndPassword,
+  updateProfile
 } from "firebase/auth";
 
 // Your web app's Firebase configuration
@@ -23,15 +24,21 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
-const registerWithEmailAndPassword = async (email, password) => {
+const registerWithEmailAndPassword = async (email, password, username) => {
   try {
     const res = await createUserWithEmailAndPassword(auth, email, password);
     const user = res.user;
+    
+    await updateProfile(user, {
+      displayName: username
+    });
+    
     return user;
   } catch (err) {
-    throw Error;
+    throw err;
   }
 };
+
 
 const loginWithEmailAndPassword = async (email, password) => {
   try {
