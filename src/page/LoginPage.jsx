@@ -1,6 +1,7 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import Field from '../components/shared/Field';
 import { loginWithEmailAndPassword } from '../firebase';
 
@@ -10,11 +11,12 @@ const LoginPage = () => {
 
     const onSubmit = async (data) => {
         try {
-            const response = await loginWithEmailAndPassword(data.email, data.password);
-            console.log(response);
+            await loginWithEmailAndPassword(data.email, data.password);
+
             navigate('/')
         } catch (error) {
             console.log(error);
+            toast.error("login failed try again later!")
         }
     };
 

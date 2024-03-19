@@ -1,6 +1,7 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import Field from '../components/shared/Field';
 import { registerWithEmailAndPassword } from '../firebase';
 
@@ -12,6 +13,7 @@ const Signup = () => {
         try {
             const user = await registerWithEmailAndPassword(data.email, data.password, data.username);
             console.log(user);
+            toast.success("signup successfully, please login", { position: "top-right" })
             navigate('/login');
         } catch (error) {
             console.log(error);

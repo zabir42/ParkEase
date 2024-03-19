@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { toast } from "react-toastify";
 import { ParkingContext } from "../context";
 
 const ParkingProvider = ({ children }) => {
@@ -11,6 +12,7 @@ const ParkingProvider = ({ children }) => {
         if (confirmed) {
             const updatedParking = parking.filter((_, i) => i !== index);
             setParking(updatedParking);
+            toast.success('Parking entry deleted successfully!');
         }
     };
 

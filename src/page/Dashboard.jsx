@@ -2,6 +2,7 @@ import { signOut } from 'firebase/auth';
 import React from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import CarWrapper from '../components/CarWrapper.jsx';
 import Footer from "../components/Footer.jsx";
 import Header from '../components/Header.jsx';
@@ -17,7 +18,7 @@ const Dashboard = () => {
     const handleLogout = () => {
         signOut(auth).then(() => {
             navigate("/login");
-            console.log('Signed Out');
+            toast.success("logout successfull")
         }).catch((error) => {
             console.error(error);
         });

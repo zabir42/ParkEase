@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
+import { toast } from 'react-toastify'; // Import toast
 import useParking from '../hooks/useParking';
 import Field from './shared/Field';
 
@@ -7,18 +8,24 @@ const ParkingForm = () => {
     const { register, handleSubmit, formState: { errors }, reset, setValue } = useForm();
     const { parking, setParking, editState, setEditState } = useParking();
 
+
     useEffect(() => {
         if (editState) {
             setValue('owner', editState.owner);
             setValue('car', editState.car);
             setValue('licensePlate', editState.licensePlate);
+
+            toast.info('Edit mode activated');
         }
     }, [editState, setValue]);
+
+
 
     const onSubmitCreate = (data) => {
         const newEntry = { ...data, entryDate: new Date().toLocaleString(), id: generateUniqueId() };
         setParking([...parking, newEntry]);
         reset();
+        toast.success('added successfull')
     };
 
     const onSubmitEdit = (data) => {
@@ -27,10 +34,9 @@ const ParkingForm = () => {
         );
         setParking(updatedParking);
         reset();
-        setEditState('')
+        setEditState('');
+        toast.success("Update successful");
     };
-
-
 
     const onSubmit = editState ? onSubmitEdit : onSubmitCreate;
 
@@ -52,6 +58,7 @@ const ParkingForm = () => {
                             <div className="form-group">
                                 <Field label="Car Owner Name:" error={errors.owner?.message}>
                                     <input
+
                                         type="text"
                                         {...register('owner', { required: 'Car Owner Name is required' })}
                                         className={`form-control rounded-0 shadow-sm ${errors.owner ? 'is-invalid' : ''}`}
